@@ -1,11 +1,10 @@
 #root {
-  max-width: fit-content;
-  max-height: fit-content;
-  margin: 0 auto;
-  padding: 2rem;
+display: flex;
+  margin:  auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
   text-align: center;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 .logo {

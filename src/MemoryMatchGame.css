@@ -1,53 +1,72 @@
-/* Overall game container with generic background */
+
+
 .game-container {
-  background-color: #232020;
+  
+  background-color: hsl(0, 4%, 13%);
+  padding-right: 3vw;
+  padding-left: 3vw;
+  padding-top: 3vw;
+  padding-bottom: 3vw;
   border-radius: 2%;
-  padding: 20px;
-  position: relative;
+  /* ~20px at a 600px reference */
+
+ width: 100vmin;
+    height: 50%;
+
+  /* Removed max-width and max-height to allow scaling down arbitrarily */
+  margin: auto;
+  overflow: hidden;
+
 }
 
 /* Responsive grid layout:
-   - Uses 90vw for width with a max-width cap.
-   - Displays 5 columns with gaps in between.
+   - Uses 100% of the game container's width.
+   - Displays 5 columns with gaps defined in percentages.
 */
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  width: 90vw;
-  max-width: 600px;
-  margin: 20px auto;
+  gap: 1.67%;             /* ~10px at a 600px reference */
+  width: 50vw;
+
+  margin: 3.33% auto;
+  box-sizing: border-box;
+  
   transition: filter 0.3s;
+
 }
+
 
 /* Blur effect when game is won */
 .grid-container.blur {
-  filter: blur(5px);
+  filter: blur(1vw);
 }
 
 /* Card styles:
-   - Square cards using aspect-ratio.
-   - Basic border and background.
+   - Cards remain square using aspect-ratio.
+   - Borders, padding, and glow effects use relative units.
 */
 .card {
   background-color: #1c1c1c;
   border-radius: 7%;
-  border: 3px solid #333;
+  border: 0.5% solid #333;
   aspect-ratio: 1 / 1;
   perspective: 1000px;
   cursor: pointer;
   position: relative;
   transition: box-shadow 0.3s;
+  overflow: hidden;
 }
 
-/* Glow on hover with specified color */
+/* Glow on hover using viewport-relative units */
 .card:hover {
-  box-shadow: 0 0 10px #DEFFF2;
+  box-shadow: 0 0 0.47vw #DEFFF2;
 }
 
 /* Glow for correctly matched cards */
 .card.matched {
-  box-shadow: 0 0 10px #ffdcb1;
+  box-shadow: 0 0 0.47vw #ffdcb1;
 }
 
 /* Inner container for 3D flip effect */
@@ -59,12 +78,12 @@
   transform-style: preserve-3d;
 }
 
-/* Flip the card when it has the .flipped class */
+/* Apply flipping for interactive cards */
 .card.flipped .card-inner {
   transform: rotateY(180deg);
 }
 
-/* Front and back faces of the card */
+/* Front and back faces take up full area of the card */
 .card-front,
 .card-back {
   position: absolute;
@@ -76,20 +95,14 @@
   justify-content: center;
 }
 
-/* Card front (shows the image) with internal padding.
-   Note: background set to transparent to preserve PNG alpha.
-*/
+/* Card front: shows the image with internal padding */
 .card-front {
   background-color: transparent;
   transform: rotateY(180deg);
-  padding: 10px;
+  padding: 1.67%;
   box-sizing: border-box;
 }
 
-/* Image styling for the front:
-   - Fills the container (minus padding) while preserving its aspect ratio.
-   - Ensures the PNG retains its alpha channel.
-*/
 .card-front img {
   width: 100%;
   height: 100%;
@@ -105,10 +118,6 @@
   font-size: 2em;
 }
 
-/* Updated styling for the card-back image (altLogo):
-   - Scales the large 1000x1000 image to fit within the card.
-   - Uses percentage dimensions and object-fit: contain.
-*/
 .card-back img {
   width: 80%;
   height: 80%;
@@ -116,33 +125,27 @@
   background: transparent;
 }
 
-/* Timer display styling */
-.timer {
-  text-align: center;
-  color: #fff;
-  font-size: 1.5em;
-  margin-top: 20px;
-}
+
 
 /* Modal overlay styling */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Modal content styling */
+/* Modal content styling with relative padding and border radius */
 .modal-content {
   background: #232020;
   color: #fff;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 5vw;
+  border-radius: 2vw;
   text-align: center;
 }
 
@@ -150,16 +153,16 @@
   margin-top: 0;
 }
 
-/* Modal button styling */
+/* Modal button styling using relative units */
 .modal-content button {
   background-color: #427AA1;
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  margin-top: 10px;
+  padding: 2vw 4vw;
+  margin-top: 1.67vw;
   cursor: pointer;
-  border-radius: 4px;
-  box-shadow: 0 0 10px #DEFFF2;
+  border-radius: 1vw;
+  box-shadow: 0 0 1.67vw #DEFFF2;
   transition: background-color 0.3s;
 }
 
@@ -167,70 +170,19 @@
   background-color: #427AA1;
 }
 
+/* Title, subtitle, and timer text styling using viewport-relative units */
 .game-title {
-  font-size: 2.5em;
+  font-size: 4vh;
   font-weight: bold;
   color: #fff;
   margin: 0;
   text-align: center;
 }
 
-.game-subtitle {
-  font-size: 1.2em;
-  color: #fff;
-  margin: 10px 0 20px;
+/* Timer display styling */
+.timer {
   text-align: center;
-}
-
-/* Mobile responsiveness adjustments */
-@media (max-width: 600px) {
-  .grid-container {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    width: 95vw;
-    max-width: 400px;
-    margin: 15px auto;
-  }
-
-  .game-title {
-    font-size: 2em;
-  }
-
-  .game-subtitle {
-    font-size: 1em;
-  }
-
-  .timer {
-    font-size: 1.2em;
-  }
-
-  .modal-content {
-    padding: 15px;
-  }
-
-  .modal-content button {
-    padding: 8px 16px;
-  }
-}
-
-@media (max-width: 400px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    width: 95vw;
-    max-width: 300px;
-    margin: 10px auto;
-  }
-
-  .game-title {
-    font-size: 1.8em;
-  }
-
-  .game-subtitle {
-    font-size: 0.9em;
-  }
-
-  .timer {
-    font-size: 1em;
-  }
+  color: #fff;
+  font-size: 2vh;         /* Scales with viewport width */
+  margin-top: 3.33%;
 }

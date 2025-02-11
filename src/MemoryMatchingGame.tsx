@@ -151,9 +151,6 @@ const MemoryMatchGame: React.FC = () => {
   return (
     <div className="game-container">
       <h1 className="game-title">SPEED TRAINING</h1>
-      <p className="game-subtitle">
-        Train your speed skills by matching all the cards!
-      </p>
 
       <div className={`grid-container ${gameWon ? "blur" : ""}`}>
         {cards.map((card) => (
